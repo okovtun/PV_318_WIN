@@ -1,6 +1,8 @@
 ﻿#include<Windows.h>
 #include"resource.h"
 
+CONST CHAR g_sz_LOGIN_INVITATION[] = "Введите имя пользователя";
+
 //Процедура окна:
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -45,11 +47,42 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 	case WM_INITDIALOG:	//Это сообшение отправляется 1 раз при инициализации окна
+	{
+		HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
+		SendMessage(hEdit, WM_SETTEXT, 0, (LPARAM)g_sz_LOGIN_INVITATION);
+	}
 		break;
 	case WM_COMMAND:	//Обрабатывает нажатие кнопок и другие действия пользователя
 		//ResourceID
 		switch (LOWORD(wParam))
 		{
+		case IDC_EDIT_LOGIN:
+		{
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE]{};
+			SendMessage((HWND)lParam, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+			/*
+			-----------------
+			WM_COMMAND
+			LOWORD(wParam) = ResourceID
+			HIWORD(wParam) = NotificationCode(EN_SETFOCUS)
+			-----------------
+			*/
+			if (HIWORD(wParam) == EN_SETFOCUS && strcmp(sz_buffer, g_sz_LOGIN_INVITATION) == 0)
+					SendMessage((HWND)lParam, WM_SETTEXT, 0, (LPARAM)"");
+			if (HIWORD(wParam) == EN_KILLFOCUS && strcmp(sz_buffer, "") == 0)
+					SendMessage((HWND)lParam, WM_SETTEXT, 0, (LPARAM)g_sz_LOGIN_INVITATION);
+			//EN_ - Edit Notofocation
+			/*
+			-----------------------------
+			Функция strcmp(const char* str1, const char* str2) сравнивает строки и возвращает значение типа 'int': 
+				0  - строки идентичны;
+				!0 - строки отличаются;
+			-----------------------------
+			//https://legacy.cplusplus.com/reference/cstring/strcmp/
+			*/
+		}
+		break;
 		case IDC_BUTTON_COPY:
 		{
 			//1) Создаем буфер:
