@@ -2,6 +2,11 @@ https://github.com/okovtun/PV_318_WIN.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIOWcVWq66QLLeChKJMbLTRM
 
 TODO:
+1. В проекте 'MainWindow' при перемещении окна по экрану и изменении его размера, 
+   размер и позиция должны отображаться в заголовке окна;
+2. Подписать кнопки в калькуляторе;
+
+DONE:
 1. При нажатии на кнопку 'OK' должен появляться MesageBox со следующим сообщением:
 	"Вы выбрали пункт №? со значением 'Таким-то'";
 2. В Solution 'WinAPI' добавить проект 'ListBox',
