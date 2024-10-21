@@ -20,6 +20,7 @@ namespace Clock
 		public MainForm()
 		{
 			InitializeComponent();
+			SetFontDirectory();
 			this.TransparencyKey = Color.Empty;
 			backgroundColorDialog = new ColorDialog();
 			foregroundColorDialog = new ColorDialog();
@@ -36,15 +37,14 @@ namespace Clock
 					50
 				);
 			this.Text += $" Location: {this.Location.X}x{this.Location.Y}";
-			SetFontDirectory();
 		}
 		void SetFontDirectory()
 		{
 			string location = Assembly.GetEntryAssembly().Location;	//Получаем полный адрес исполняемого файла
 			string path = Path.GetDirectoryName(location);			//Из адреса извлекаем путь к файлу
-			MessageBox.Show(path);
+			//MessageBox.Show(path);
 			Directory.SetCurrentDirectory($"{path}\\..\\..\\Fonts");//Переходим в каталог со шрифтами
-			MessageBox.Show(Directory.GetCurrentDirectory());
+			//MessageBox.Show(Directory.GetCurrentDirectory());
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
@@ -137,7 +137,7 @@ namespace Clock
 		{
 			if (chooseFontDialog.ShowDialog(this) == DialogResult.OK)
 			{
-				labelTime.Font = fontDialog.Font;
+				labelTime.Font = chooseFontDialog.ChosenFont;
 			}
 		}
 	}
