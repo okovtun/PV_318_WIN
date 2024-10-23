@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Clock
 {
@@ -24,12 +25,12 @@ namespace Clock
 			this.TransparencyKey = Color.Empty;
 			backgroundColorDialog = new ColorDialog();
 			foregroundColorDialog = new ColorDialog();
+			LoadSettings();
 
 			chooseFontDialog = new ChooseFont();
 
-			backgroundColorDialog.Color = Color.Black;
-			foregroundColorDialog.Color = Color.Blue;
-			labelTime.ForeColor = foregroundColorDialog.Color;
+			//backgroundColorDialog.Color = Color.Black;
+			//foregroundColorDialog.Color = Color.Blue;
 			SetVisibility(false);
 			this.Location = new Point
 				(
@@ -45,6 +46,30 @@ namespace Clock
 			//MessageBox.Show(path);
 			Directory.SetCurrentDirectory($"{path}\\..\\..\\Fonts");//Переходим в каталог со шрифтами
 			//MessageBox.Show(Directory.GetCurrentDirectory());
+		}
+		void LoadSettings()
+		{
+			StreamReader sr = new StreamReader("settings.txt");
+			List<string> settings = new List<string>();
+			while (!sr.EndOfStream)
+			{
+				settings.Add(sr.ReadLine());
+			}
+			sr.Close();
+			backgroundColorDialog.Color = Color.FromArgb(Convert.ToInt32(settings.ToArray()[0]));
+			foregroundColorDialog.Color = Color.FromArgb(Convert.ToInt32(settings.ToArray()[1]));
+			labelTime.ForeColor = foregroundColorDialog.Color;
+			labelTime.BackColor = backgroundColorDialog.Color;
+
+		}
+		void SaveSettings()
+		{
+			StreamWriter sw = new StreamWriter("settings.txt");
+			sw.WriteLine(backgroundColorDialog.Color.ToArgb()); //ToArgb() врзвращает числовой код цвета
+			sw.WriteLine(foregroundColorDialog.Color.ToArgb());
+			sw.WriteLine(labelTime.Font.Name);
+			sw.Close();
+			Process.Start("notepad", "settings.txt");
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
@@ -139,6 +164,11 @@ namespace Clock
 			{
 				labelTime.Font = chooseFontDialog.ChosenFont;
 			}
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			SaveSettings();
 		}
 	}
 }
