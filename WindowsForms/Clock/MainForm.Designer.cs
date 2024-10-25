@@ -50,6 +50,8 @@
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.notifyIconSystemTray = new System.Windows.Forms.NotifyIcon(this.components);
 			this.fontDialog = new System.Windows.Forms.FontDialog();
+			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+			this.alarmsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -75,12 +77,14 @@
             this.toolStripSeparator2,
             this.colorsToolStripMenuItem,
             this.fontsToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.alarmsToolStripMenuItem,
             this.toolStripSeparator3,
             this.loadOnWindowsStartupToolStripMenuItem,
-            this.toolStripSeparator4,
+            this.toolStripSeparator5,
             this.closeToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(210, 204);
+			this.contextMenuStrip.Size = new System.Drawing.Size(210, 232);
 			// 
 			// topmostToolStripMenuItem
 			// 
@@ -210,6 +214,18 @@
 			this.notifyIconSystemTray.DoubleClick += new System.EventHandler(this.notifyIconSystemTray_DoubleClick);
 			this.notifyIconSystemTray.MouseMove += new System.Windows.Forms.MouseEventHandler(this.notifyIconSystemTray_MouseMove);
 			// 
+			// toolStripSeparator5
+			// 
+			this.toolStripSeparator5.Name = "toolStripSeparator5";
+			this.toolStripSeparator5.Size = new System.Drawing.Size(206, 6);
+			// 
+			// alarmsToolStripMenuItem
+			// 
+			this.alarmsToolStripMenuItem.Name = "alarmsToolStripMenuItem";
+			this.alarmsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+			this.alarmsToolStripMenuItem.Text = "Alarms";
+			this.alarmsToolStripMenuItem.Click += new System.EventHandler(this.alarmsToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,6 +270,8 @@
 		private System.Windows.Forms.ToolStripMenuItem foregroundColorToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem backgroundColorToolStripMenuItem;
 		private System.Windows.Forms.FontDialog fontDialog;
+		private System.Windows.Forms.ToolStripMenuItem alarmsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 	}
 }
 
