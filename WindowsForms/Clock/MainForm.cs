@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace Clock
 {
@@ -66,6 +67,10 @@ namespace Clock
 			labelTime.ForeColor = foregroundColorDialog.Color;
 			labelTime.BackColor = backgroundColorDialog.Color;
 
+			RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			object run = rk.GetValue("Clock318");
+			if (run != null) loadOnWindowsStartupToolStripMenuItem.Checked = true;
+			rk.Dispose();
 		}
 		void SaveSettings()
 		{
@@ -176,6 +181,16 @@ namespace Clock
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			SaveSettings();
+		}
+
+		private void loadOnWindowsStartupToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		{
+			RegistryKey rk =
+				Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);  //true - Writable
+			if (loadOnWindowsStartupToolStripMenuItem.Checked)
+					rk.SetValue("Clock318", Application.ExecutablePath);
+			else	rk.DeleteValue("Clock318", false);//false - НЕ бросать исключение, если указанная запись отсутсвует.
+			rk.Dispose();	//Освобождает ресурсы, занятые объектом.
 		}
 	}
 }
