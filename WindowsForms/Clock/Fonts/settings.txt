@@ -1,5 +1,5 @@
 -16777216
 -16776961
 DS-DIGI.TTF
-False
+True
 True

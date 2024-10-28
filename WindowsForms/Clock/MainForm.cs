@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 using Microsoft.Win32;
+using System.Runtime.InteropServices;
 
 namespace Clock
 {
@@ -24,6 +25,7 @@ namespace Clock
 		public MainForm()
 		{
 			InitializeComponent();
+			AllocConsole();
 			SetFontDirectory();
 			this.TransparencyKey = Color.Empty;
 			backgroundColorDialog = new ColorDialog();
@@ -199,5 +201,7 @@ namespace Clock
 		{
 			alarmList.ShowDialog(this);
 		}
+		[DllImport("kernel32.dll")]
+		static extern bool AllocConsole();
 	}
 }

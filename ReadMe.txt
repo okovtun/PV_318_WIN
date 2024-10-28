@@ -2,6 +2,10 @@ https://github.com/okovtun/PV_318_WIN.git
 https://www.youtube.com/playlist?list=PLeqyOOqxeiIOWcVWq66QLLeChKJMbLTRM
 
 TODO:
+1. ѕри двойном щелчке по будильнику в AlarmList должно открыватьс€ окно AddAlarm,
+   в которое уже загружены свойства выбранного будильника;
+
+TODO:
 1. „асы должны запускатьс€ в првой верхней части экрана (при любом разрещении);	DONE
 2. ƒобавить контекстное меню, которое будет отображатьс€ при нажатии ѕ ћ на иконку в System tray:
 	-ѕоверх всех окон;				DONE

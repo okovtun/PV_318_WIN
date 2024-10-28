@@ -29,18 +29,18 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlarmList));
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.listBoxAlarms = new System.Windows.Forms.ListBox();
 			this.buttonAddAlarm = new System.Windows.Forms.Button();
 			this.buttonDeleteAlarm = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
-			// listBox1
+			// listBoxAlarms
 			// 
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.Location = new System.Drawing.Point(13, 26);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(359, 186);
-			this.listBox1.TabIndex = 0;
+			this.listBoxAlarms.FormattingEnabled = true;
+			this.listBoxAlarms.Location = new System.Drawing.Point(13, 26);
+			this.listBoxAlarms.Name = "listBoxAlarms";
+			this.listBoxAlarms.Size = new System.Drawing.Size(359, 186);
+			this.listBoxAlarms.TabIndex = 0;
 			// 
 			// buttonAddAlarm
 			// 
@@ -68,7 +68,7 @@
 			this.ClientSize = new System.Drawing.Size(463, 232);
 			this.Controls.Add(this.buttonDeleteAlarm);
 			this.Controls.Add(this.buttonAddAlarm);
-			this.Controls.Add(this.listBox1);
+			this.Controls.Add(this.listBoxAlarms);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
@@ -81,7 +81,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.ListBox listBoxAlarms;
 		private System.Windows.Forms.Button buttonAddAlarm;
 		private System.Windows.Forms.Button buttonDeleteAlarm;
 	}
