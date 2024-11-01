@@ -51,11 +51,11 @@ namespace Clock
 		}
 		void SetFontDirectory()
 		{
-			string location = Assembly.GetEntryAssembly().Location;	//Получаем полный адрес исполняемого файла
-			string path = Path.GetDirectoryName(location);			//Из адреса извлекаем путь к файлу
-			//MessageBox.Show(path);
+			string location = Assembly.GetEntryAssembly().Location; //Получаем полный адрес исполняемого файла
+			string path = Path.GetDirectoryName(location);          //Из адреса извлекаем путь к файлу
+																	//MessageBox.Show(path);
 			Directory.SetCurrentDirectory($"{path}\\..\\..\\Fonts");//Переходим в каталог со шрифтами
-			//MessageBox.Show(Directory.GetCurrentDirectory());
+																	//MessageBox.Show(Directory.GetCurrentDirectory());
 		}
 		void LoadSettings()
 		{
@@ -93,16 +93,21 @@ namespace Clock
 		}
 		void GetNextAlarm()
 		{
-			//if (alarmList.ListBoxAlarms != null)
-			//{
-				List<Alarm> alarms = new List<Alarm>();
-				foreach (Alarm item in alarmList.ListBoxAlarms.Items)
-				{
+			List<Alarm> alarms = new List<Alarm>();
+			foreach (Alarm item in alarmList.ListBoxAlarms.Items)
+			{
+				if (item.Time > DateTime.Now)
 					alarms.Add(item);
-				}
-				if(alarms.Min()!=null)alarm = alarms.Min();
-				Console.WriteLine(alarm);
+			}
+			if (alarms.Min() != null)
+				alarm = alarms.Min();
+			//List<TimeSpan> intervals = new List<TimeSpan>();
+			//foreach (Alarm item in alarmList.ListBoxAlarms.Items)
+			//{
+			//	TimeSpan min = new TimeSpan(24,0,0);
+			//	if (DateTime.Now - item.Time < min) alarm = item;
 			//}
+			Console.WriteLine(alarm);
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
@@ -112,16 +117,24 @@ namespace Clock
 			{
 				labelTime.Text += $"\n{DateTime.Today.ToString("yyyy.MM.dd")}";
 			}
+			if (showWeekdayToolStripMenuItem.Checked)
+			{
+				labelTime.Text += $"\n{DateTime.Now.DayOfWeek}";
+			}
 			//notifyIconSystemTray.Text = "Curret time " + labelTime.Text;
-			GetNextAlarm();
+			//int weekday = (int)DateTime.Now.DayOfWeek;
+			//weekday = weekday == 0 ? 7 : weekday - 1;
 			if (
-				DateTime.Now.Hour == alarm.Time.Hour && 
-				DateTime.Now.Minute == alarm.Time.Minute && 
+				alarm.Weekdays[((int)DateTime.Now.DayOfWeek == 0 ? 6 : (int)DateTime.Now.DayOfWeek - 1)] == true &&
+				DateTime.Now.Hour == alarm.Time.Hour &&
+				DateTime.Now.Minute == alarm.Time.Minute &&
 				DateTime.Now.Second == alarm.Time.Second
 				)
 			{
 				MessageBox.Show(alarm.Filename, "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				Console.WriteLine("ALARM:----" + alarm.ToString());
 			}
+			GetNextAlarm();
 		}
 		private void SetVisibility(bool visible)
 		{
@@ -218,9 +231,9 @@ namespace Clock
 			RegistryKey rk =
 				Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);  //true - Writable
 			if (loadOnWindowsStartupToolStripMenuItem.Checked)
-					rk.SetValue("Clock318", Application.ExecutablePath);
-			else	rk.DeleteValue("Clock318", false);//false - НЕ бросать исключение, если указанная запись отсутсвует.
-			rk.Dispose();	//Освобождает ресурсы, занятые объектом.
+				rk.SetValue("Clock318", Application.ExecutablePath);
+			else rk.DeleteValue("Clock318", false);//false - НЕ бросать исключение, если указанная запись отсутсвует.
+			rk.Dispose();   //Освобождает ресурсы, занятые объектом.
 		}
 
 		private void alarmsToolStripMenuItem_Click(object sender, EventArgs e)
