@@ -23,6 +23,7 @@ namespace Clock
 		AlarmList alarmList;
 		Alarm alarm;
 		string FontFile { get; set; }
+		//static readonly string DEFAULT_ALARM_SOUND = "..\\Sound\\07 - Blind Witness - Baby One More Notch.flac";
 		public MainForm()
 		{
 			InitializeComponent();
@@ -147,7 +148,10 @@ namespace Clock
 		}
 		void PlayAlarm()
 		{
-			axWindowsMediaPlayer.URL = alarm.Filename;
+			axWindowsMediaPlayer.URL =
+				File.Exists(alarm.Filename) ?
+				alarm.Filename :
+				Path.GetFullPath("..\\Sound\\07 - Blind Witness - Baby One More Notch.flac");
 			axWindowsMediaPlayer.settings.volume = 100;
 			axWindowsMediaPlayer.Ctlcontrols.play();
 			axWindowsMediaPlayer.Visible = true;
