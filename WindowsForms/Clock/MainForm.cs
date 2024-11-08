@@ -98,7 +98,7 @@ namespace Clock
 			List<Alarm> alarms = new List<Alarm>();
 			foreach (Alarm item in alarmList.ListBoxAlarms.Items)
 			{
-				if (item.Time > DateTime.Now)
+				if (item.Time.TimeOfDay > DateTime.Now.TimeOfDay)
 					alarms.Add(item);
 			}
 			if (alarms.Min() != null)
@@ -151,6 +151,7 @@ namespace Clock
 			axWindowsMediaPlayer.settings.volume = 100;
 			axWindowsMediaPlayer.Ctlcontrols.play();
 			axWindowsMediaPlayer.Visible = true;
+			Console.WriteLine($"Play ALARM: {alarm}");
 		}
 		private void SetVisibility(bool visible)
 		{

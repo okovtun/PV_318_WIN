@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Clock
 {
-	public class Alarm:IComparable
+	public class Alarm : IComparable
 	{
-		public static readonly string[] WeekDayNames = new string[7]{ "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
+		public static readonly string[] WeekDayNames = new string[7] { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
 		public DateTime Date { get; set; }
 		public DateTime Time { get; set; }
 		public bool[] Weekdays { get; private set; }
-		public string Filename { get; set; } = "";
+		string filename;
+		public string Filename
+		{
+			set => filename = value;
+			get => File.Exists(filename) ? filename : Path.GetFullPath(DEFAULT_ALARM_FILE);
+		}
+		static readonly string DEFAULT_ALARM_FILE = "..\\Sound\\07 - Blind Witness - Baby One More Notch.flac";
 
 		public Alarm()
 		{
@@ -51,7 +58,7 @@ namespace Clock
 			string days = "";
 			for (int i = 0; i < Weekdays.Length; i++)
 			{
-				if(Weekdays[i])days += WeekDayNames[i];
+				if (Weekdays[i]) days += WeekDayNames[i];
 				//Console.Write(Weekdays[i]+"\t");
 			}
 			//Console.WriteLine();
@@ -76,7 +83,7 @@ namespace Clock
 		}
 		public int CompareTo(object other)
 		{
-			return this.Time.CompareTo((other as Alarm).Time);
+			return this.Time.TimeOfDay.CompareTo((other as Alarm).Time.TimeOfDay);
 			//Оператор 'as' преобразует значение слева в тип справа.
 		}
 	}
